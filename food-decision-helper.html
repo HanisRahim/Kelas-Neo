@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Should I Eat? 🍴</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Malayan Civet Mascot -->
+        <div class="mascot-container">
+            <svg class="civet-mascot" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Body -->
+                <ellipse cx="100" cy="120" rx="45" ry="38" fill="#8B7355" stroke="#6B5345" stroke-width="2"/>
+                
+                <!-- Head -->
+                <circle cx="100" cy="70" r="32" fill="#A0826D" stroke="#6B5345" stroke-width="2"/>
+                
+                <!-- Ears -->
+                <ellipse cx="82" cy="50" rx="12" ry="18" fill="#A0826D" stroke="#6B5345" stroke-width="2"/>
+                <ellipse cx="118" cy="50" rx="12" ry="18" fill="#A0826D" stroke="#6B5345" stroke-width="2"/>
+                <ellipse cx="82" cy="52" rx="6" ry="10" fill="#D4A574"/>
+                <ellipse cx="118" cy="52" rx="6" ry="10" fill="#D4A574"/>
+                
+                <!-- Face markings (darker stripes) -->
+                <ellipse cx="88" cy="68" rx="8" ry="4" fill="#6B5345" opacity="0.6"/>
+                <ellipse cx="112" cy="68" rx="8" ry="4" fill="#6B5345" opacity="0.6"/>
+                
+                <!-- Eyes -->
+                <circle cx="88" cy="72" r="6" fill="#2C2416"/>
+                <circle cx="112" cy="72" r="6" fill="#2C2416"/>
+                <circle cx="90" cy="70" r="2.5" fill="white"/>
+                <circle cx="114" cy="70" r="2.5" fill="white"/>
+                
+                <!-- Snout -->
+                <ellipse cx="100" cy="82" rx="10" ry="8" fill="#D4A574"/>
+                
+                <!-- Nose -->
+                <ellipse cx="100" cy="80" rx="4" ry="3" fill="#2C2416"/>
+                
+                <!-- Mouth -->
+                <path d="M 100 82 Q 95 86 92 85" stroke="#2C2416" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M 100 82 Q 105 86 108 85" stroke="#2C2416" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                
+                <!-- Whiskers -->
+                <line x1="70" y1="78" x2="55" y2="76" stroke="#2C2416" stroke-width="1" opacity="0.7"/>
+                <line x1="70" y1="82" x2="55" y2="84" stroke="#2C2416" stroke-width="1" opacity="0.7"/>
+                <line x1="130" y1="78" x2="145" y2="76" stroke="#2C2416" stroke-width="1" opacity="0.7"/>
+                <line x1="130" y1="82" x2="145" y2="84" stroke="#2C2416" stroke-width="1" opacity="0.7"/>
+                
+                <!-- Arms -->
+                <ellipse cx="70" cy="115" rx="14" ry="24" fill="#A0826D" stroke="#6B5345" stroke-width="2"/>
+                <ellipse cx="130" cy="115" rx="14" ry="24" fill="#A0826D" stroke="#6B5345" stroke-width="2"/>
+                
+                <!-- Legs -->
+                <ellipse cx="85" cy="148" rx="12" ry="20" fill="#A0826D" stroke="#6B5345" stroke-width="2"/>
+                <ellipse cx="115" cy="148" rx="12" ry="20" fill="#A0826D" stroke="#6B5345" stroke-width="2"/>
+                
+                <!-- Paws -->
+                <ellipse cx="85" cy="165" rx="10" ry="6" fill="#8B7355" stroke="#6B5345" stroke-width="1.5"/>
+                <ellipse cx="115" cy="165" rx="10" ry="6" fill="#8B7355" stroke="#6B5345" stroke-width="1.5"/>
+                
+                <!-- Tail (behind body) -->
+                <path d="M 140 125 Q 165 120 175 105 Q 180 95 178 85" stroke="#8B7355" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M 140 125 Q 165 120 175 105 Q 180 95 178 85" stroke="#6B5345" stroke-width="17" fill="none" stroke-linecap="round" opacity="0.3"/>
+                
+                <!-- Tail rings (darker) -->
+                <circle cx="150" cy="120" r="4" fill="#6B5345" opacity="0.5"/>
+                <circle cx="165" cy="110" r="4" fill="#6B5345" opacity="0.5"/>
+                <circle cx="176" cy="95" r="4" fill="#6B5345" opacity="0.5"/>
+                
+                <!-- Belly spot -->
+                <ellipse cx="100" cy="125" rx="22" ry="18" fill="#D4A574" opacity="0.6"/>
+                
+                <!-- Chef hat accessory -->
+                <ellipse cx="100" cy="42" rx="28" ry="10" fill="white" stroke="#E0E0E0" stroke-width="2"/>
+                <rect x="75" y="32" width="50" height="12" rx="2" fill="white" stroke="#E0E0E0" stroke-width="2"/>
+                <ellipse cx="100" cy="22" rx="22" ry="12" fill="white" stroke="#E0E0E0" stroke-width="2"/>
+            </svg>
+            <div class="mascot-speech-bubble">
+                <p>Let me help you find something delicious!</p>
+            </div>
+        </div>
+        
+        <h1>🍴 What Should I Eat?</h1>
+        <p class="subtitle">Let us help you decide!</p>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label>Select Cuisine Type:</label>
+                <div class="cuisine-tags" id="cuisineTags">
+                    <div class="cuisine-tag" data-cuisine="italian">🍝 Italian</div>
+                    <div class="cuisine-tag" data-cuisine="chinese">🥡 Chinese</div>
+                    <div class="cuisine-tag" data-cuisine="japanese">🍱 Japanese</div>
+                    <div class="cuisine-tag" data-cuisine="mexican">🌮 Mexican</div>
+                    <div class="cuisine-tag" data-cuisine="indian">🍛 Indian</div>
+                    <div class="cuisine-tag" data-cuisine="thai">🍜 Thai</div>
+                    <div class="cuisine-tag" data-cuisine="american">🍔 American</div>
+                    <div class="cuisine-tag" data-cuisine="korean">🍲 Korean</div>
+                    <div class="cuisine-tag" data-cuisine="mediterranean">🥙 Mediterranean</div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Meal Type:</label>
+                <div class="meal-type">
+                    <button class="meal-btn" data-meal="breakfast">Breakfast</button>
+                    <button class="meal-btn" data-meal="lunch">Lunch</button>
+                    <button class="meal-btn" data-meal="dinner">Dinner</button>
+                    <button class="meal-btn" data-meal="snack">Snack</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="decide-btn" onclick="decideFood()">🎲 Decide For Me!</button>
+
+        <div class="random-mode">
+            <label>
+                <input type="checkbox" id="randomMode"> I'm feeling adventurous (completely random)
+            </label>
+        </div>
+
+        <div class="result" id="result">
+            <div class="result-emoji" id="resultEmoji">🍕</div>
+            <div class="result-title" id="resultTitle">Pizza</div>
+            <div class="result-cuisine" id="resultCuisine">Italian Cuisine</div>
+            <div class="result-description" id="resultDescription">A delicious classic that never disappoints!</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
