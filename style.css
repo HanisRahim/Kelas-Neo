@@ -59,16 +59,21 @@ body {
 }
 
 .civet-mascot {
-    width: 120px;
-    height: 120px;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    width: 140px;
+    height: 140px;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35)) 
+            drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25))
+            drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
     animation: mascotBounce 2s ease-in-out infinite;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .civet-mascot:hover {
     transform: scale(1.1) rotate(5deg) !important;
     cursor: pointer;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4)) 
+            drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3))
+            brightness(1.05);
 }
 
 @keyframes mascotBounce {
@@ -504,8 +509,8 @@ h1 {
     }
 
     .civet-mascot {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
     }
 
     .mascot-speech-bubble {
