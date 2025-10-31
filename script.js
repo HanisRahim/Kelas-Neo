@@ -1,3 +1,23 @@
+// ============================================
+// SUPABASE CONFIGURATION
+// ============================================
+// Replace these with your actual Supabase credentials
+// Get them from: https://supabase.com/dashboard/project/YOUR_PROJECT/settings/api
+const SUPABASE_URL = 'https://ajygpvkbhpiplyhvbrse.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFqeWdwdmtiaHBpcGx5aHZicnNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2Mzc3MzcsImV4cCI6MjA3NzIxMzczN30.yR-WBNL2x5qX7uFG_hfIIeUsmTopJtsgXm0W8K6glPw';
+
+// Initialize Supabase client (will be null if credentials not provided)
+let supabase = null;
+if (SUPABASE_URL !== 'YOUR_SUPABASE_URL_HERE' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY_HERE') {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('✅ Supabase initialized successfully!');
+} else {
+    console.log('⚠️ Supabase not configured. Add your credentials in script.js');
+}
+
+// ============================================
+// FOOD DATABASE
+// ============================================
 const foodDatabase = {
     italian: {
         breakfast: [
@@ -181,6 +201,88 @@ const foodDatabase = {
     }
 };
 
+// ============================================
+// SUPABASE FUNCTIONS
+// ============================================
+
+// Save food choice to Supabase history
+async function saveFoodToHistory(food, cuisine, mealType) {
+    if (!supabase) {
+        console.log('Supabase not configured - skipping history save');
+        return;
+    }
+
+    try {
+        const { data, error } = await supabase
+            .from('food_history')
+            .insert([
+                {
+                    food_name: food.name,
+                    emoji: food.emoji,
+                    cuisine: cuisine,
+                    meal_type: mealType,
+                    description: food.desc
+                }
+            ])
+            .select();
+
+        if (error) {
+            console.error('Error saving to history:', error);
+        } else {
+            console.log('✅ Saved to history:', data);
+            loadFoodHistory(); // Refresh history display
+        }
+    } catch (err) {
+        console.error('Error:', err);
+    }
+}
+
+// Load food history from Supabase
+async function loadFoodHistory() {
+    if (!supabase) return;
+
+    try {
+        const { data, error } = await supabase
+            .from('food_history')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(10);
+
+        if (error) {
+            console.error('Error loading history:', error);
+        } else {
+            displayFoodHistory(data);
+        }
+    } catch (err) {
+        console.error('Error:', err);
+    }
+}
+
+// Display food history in the UI
+function displayFoodHistory(history) {
+    const historyContainer = document.getElementById('historyContainer');
+    if (!historyContainer || !history || history.length === 0) {
+        if (historyContainer) {
+            historyContainer.innerHTML = '<p class="no-history">No food history yet. Make your first choice!</p>';
+        }
+        return;
+    }
+
+    historyContainer.innerHTML = history.map(item => `
+        <div class="history-item">
+            <span class="history-emoji">${item.emoji}</span>
+            <div class="history-details">
+                <div class="history-name">${item.food_name}</div>
+                <div class="history-meta">${item.cuisine} • ${item.meal_type}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ============================================
+// EVENT HANDLERS
+// ============================================
+
 // Handle cuisine selection
 document.querySelectorAll('.cuisine-tag').forEach(tag => {
     tag.addEventListener('click', function() {
@@ -246,6 +348,9 @@ function decideFood() {
 
     // Pick random food
     const selectedFood = availableFoods[Math.floor(Math.random() * availableFoods.length)];
+
+    // Save to Supabase history
+    saveFoodToHistory(selectedFood, randomCuisine, selectedMeal);
 
     // Display result
     document.getElementById('resultEmoji').textContent = selectedFood.emoji;
@@ -367,6 +472,17 @@ document.querySelector('.civet-mascot').addEventListener('click', function() {
 document.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         decideFood();
+    }
+});
+
+// ============================================
+// INITIALIZATION
+// ============================================
+// Load food history when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    if (supabase) {
+        loadFoodHistory();
+        console.log('🍽️ Food history loaded!');
     }
 });
 

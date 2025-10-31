@@ -498,6 +498,123 @@ h1 {
     accent-color: #FF6B6B;
 }
 
+/* History Section */
+.history-section {
+    margin-top: 40px;
+    padding: 30px;
+    background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+    border-radius: 20px;
+    border: 2px solid rgba(78, 205, 196, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.history-title {
+    text-align: center;
+    color: #4ECDC4;
+    font-size: 1.8em;
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.history-subtitle {
+    text-align: center;
+    color: #6c757d;
+    font-size: 1em;
+    margin-bottom: 25px;
+    font-style: italic;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Custom scrollbar for history list */
+.history-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: #4ECDC4;
+    border-radius: 10px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: #44A8A0;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+    animation: slideInHistory 0.4s ease-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes slideInHistory {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.history-item:hover {
+    transform: translateX(5px);
+    border-color: #4ECDC4;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.2);
+}
+
+.history-emoji {
+    font-size: 2.5em;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.history-details {
+    flex: 1;
+}
+
+.history-name {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 4px;
+}
+
+.history-meta {
+    font-size: 0.9em;
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.no-history {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 30px;
+    font-size: 1.05em;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 30px 25px;
@@ -564,6 +681,40 @@ h1 {
 
     .result-description {
         font-size: 1.05em;
+    }
+
+    .history-section {
+        padding: 20px;
+        margin-top: 30px;
+    }
+
+    .history-title {
+        font-size: 1.5em;
+    }
+
+    .history-subtitle {
+        font-size: 0.9em;
+    }
+
+    .history-item {
+        padding: 12px 15px;
+        gap: 12px;
+    }
+
+    .history-emoji {
+        font-size: 2em;
+    }
+
+    .history-name {
+        font-size: 1em;
+    }
+
+    .history-meta {
+        font-size: 0.85em;
+    }
+
+    .history-list {
+        max-height: 300px;
     }
 }
 
