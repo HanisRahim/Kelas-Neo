@@ -269,14 +269,60 @@ function displayFoodHistory(history) {
     }
 
     historyContainer.innerHTML = history.map(item => `
-        <div class="history-item">
+        <div class="history-item" data-id="${item.id}">
             <span class="history-emoji">${item.emoji}</span>
             <div class="history-details">
                 <div class="history-name">${item.food_name}</div>
                 <div class="history-meta">${item.cuisine} • ${item.meal_type}</div>
             </div>
+            <button class="delete-btn" onclick="deleteFoodHistory('${item.id}')" title="Delete this item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 4h12M5.333 4V2.667a1.333 1.333 0 011.334-1.334h2.666a1.333 1.333 0 011.334 1.334V4m2 0v9.333a1.333 1.333 0 01-1.334 1.334H4.667a1.333 1.333 0 01-1.334-1.334V4h9.334z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         </div>
     `).join('');
+}
+
+// Delete food history item
+async function deleteFoodHistory(itemId) {
+    if (!supabase) {
+        console.log('Supabase not configured - cannot delete');
+        return;
+    }
+
+    // Confirm deletion
+    if (!confirm('Are you sure you want to delete this item from your history?')) {
+        return;
+    }
+
+    try {
+        const { error } = await supabase
+            .from('food_history')
+            .delete()
+            .eq('id', itemId);
+
+        if (error) {
+            console.error('Error deleting history item:', error);
+            alert('Failed to delete item. Please try again.');
+        } else {
+            console.log('✅ Item deleted successfully');
+            
+            // Animate removal
+            const itemElement = document.querySelector(`[data-id="${itemId}"]`);
+            if (itemElement) {
+                itemElement.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => {
+                    loadFoodHistory(); // Refresh history display
+                }, 300);
+            } else {
+                loadFoodHistory(); // Refresh history display
+            }
+        }
+    } catch (err) {
+        console.error('Error:', err);
+        alert('Failed to delete item. Please try again.');
+    }
 }
 
 // ============================================
